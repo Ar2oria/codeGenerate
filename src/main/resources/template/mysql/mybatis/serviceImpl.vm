@@ -1,0 +1,20 @@
+package ${serviceImplPackage};
+
+import ${pojoPackage}.${bigDoName};
+import ${servicePackage}.${bigServiceName};
+import ${daoPackage}.${bigDaoName};
+import com.veitch.common.service.imp.GenericSqlMapServiceImpl;
+import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
+
+/**
+* @author: veitch
+* @comments:  ${headName}服务实现层
+* @since Date： ${date}
+*/
+@Service("${minServiceName}")
+public class ${bigServiceImplName} extends GenericSqlMapServiceImpl<${bigDoName}, ${idType}> implements
+        ${bigServiceName} {
+    @Resource
+    ${bigDaoName} ${minDaoName};
+}

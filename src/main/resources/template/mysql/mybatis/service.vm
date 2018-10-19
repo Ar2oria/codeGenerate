@@ -1,0 +1,12 @@
+package ${servicePackage};
+
+import ${pojoPackage}.${bigDoName};
+import com.veitch.common.service.GenericService;
+
+/**
+* @author: veitch
+* @comments:  ${headName}服务层
+* @since Date： ${date}
+*/
+public interface ${bigServiceName} extends GenericService<${bigDoName}, ${idType}>  {
+}

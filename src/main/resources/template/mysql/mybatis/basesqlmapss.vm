@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${daoPackage}.${tableName}Dao">
+    <resultMap id="${tableName}Map" type="${tableName}">
+        #foreach($xmlBo in ${list})
+            <result property="$!{xmlBo.propertyName}" column="$!{xmlBo.columnName}"/>
+        #end
+    </resultMap>
+
+    <!-- 所有查询字段 -->
+    <sql id="allSelectionColumn">
+        #foreach($xmlBo in ${list})#if(($velocityCount)!=$!{list.size()})
+            $!{xmlBo.columnName},
+        #else
+            $!{xmlBo.columnName}
+        #end#end</sql>
+
+    <!-- 根据ID查询实体数据 -->
+    <select id="selectByParams" parameterType="${idType}" resultMap="${tableName}Map">
+        SELECT
+        <include refid="allSelectionColumn"/>
+        FROM ${table_name} WHERE id = #{value} LIMIT 1
+    </select>
+
+    <!--多条件查询表信息(分页) -->
+    <select id="selectListByParams" parameterType="${tableName}" resultMap="${tableName}Map">
+        SELECT
+        <include refid="allSelectionColumn"/>
+        FROM ${table_name}
+    </select>
+
+    <select id="selectCountByParams" parameterType="${tableName}" resultType="int">
+        SELECT COUNT(id) FROM ${table_name}
+    </select>
+
+    <!-- 添加数据 -->
+    <insert id="insert" parameterType="${tableName}">
+        #if(${idType} != 'String')
+            <selectKey resultType="${idType}" order="AFTER" keyProperty="id">
+                SELECT LAST_INSERT_ID() AS id
+            </selectKey>
+        #end
+        INSERT INTO ${table_name}(
+        #foreach($xmlBo in ${list})
+            #if(($velocityCount)!=$!{list.size()})$!xmlBo.columnName,
+            #else
+                $!xmlBo.columnName
+            #end#end
+        )VALUES(
+        #foreach($xmlBo in ${list})#if(($velocityCount)!=$!{list.size()})
+            #{$!xmlBo.propertyName},
+        #else
+            #{$!xmlBo.propertyName}#end#end)
+    </insert>
+
+    <!-- 根据ID更新信息-->
+    <update id="updateById" parameterType="${tableName}">
+        UPDATE ${table_name}
+        <set>
+            #foreach($xmlBo in ${list})#if(($velocityCount)==$!{list.size()})
+                <if test="$!{xmlBo.propertyName} != null #if($!{xmlBo.type} ==
+                    "STRING")and $!{xmlBo.propertyName} != ''#end">
+                    $!xmlBo.columnName = #{$!{xmlBo.propertyName}}
+                </if>
+            #else
+                <if test="$!{xmlBo.propertyName} != null #if($!{xmlBo.type} ==
+                    "STRING")and $!{xmlBo.propertyName} != ''#end">
+                    $!xmlBo.columnName = #{$!{xmlBo.propertyName}},
+                </if>
+            #end#end
+        </set>
+    </update>
+
+    <!-- 根据ID删除数据-->
+    <delete id="deleteById" parameterType="${idType}">
+        DELETE FROM ${table_name} WHERE id = #{value}
+    </delete>
+
+</mapper>
+

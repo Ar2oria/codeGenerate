@@ -1,0 +1,12 @@
+package ${daoPackage} ;
+
+import ${pojoPackage}.${bigDoName};
+import com.veitch.common.dao.DaoMapper;
+
+/**
+* @author: veitch
+* @comments:  ${headName}持久层
+* @since Date： ${date}
+*/
+public interface ${bigDaoName} extends DaoMapper<${bigDoName}, ${idType}>  {
+}

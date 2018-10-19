@@ -1,0 +1,31 @@
+package ${packageName};
+
+import com.veitch.common.dao.Id;
+import com.veitch.common.entity.BaseEntity;
+#if(($hasDate)==1)
+import java.util.Date;
+#end
+#if(($hasBigDecimal)==1)
+import java.math.BigDecimal;
+#end
+import lombok.Data;
+
+/**
+* @author: veitch
+* @comments:  ${headName}模型
+* @since Date： ${date}
+*/
+@Data
+public class ${headName} extends BaseEntity{
+
+#foreach($colum in $columList)
+	/**
+     * $!colum.remark
+     */
+    #if($!colum.primkey)
+@Id
+    #end
+private $!colum.type $!colum.name;
+
+#end
+}
