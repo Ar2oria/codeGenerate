@@ -3,7 +3,7 @@ package ${serviceImplPackage};
 import ${pojoPackage}.${bigDoName};
 import ${servicePackage}.${bigServiceName};
 import ${daoPackage}.${bigDaoName};
-import com.veitch.common.service.imp.GenericSqlMapServiceImpl;
+import ${serviceImplPackage}.imp.GenericSqlMapServiceImpl;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 

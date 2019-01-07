@@ -1,7 +1,7 @@
 package ${servicePackage};
 
 import ${pojoPackage}.${bigDoName};
-import com.veitch.common.service.GenericService;
+import ${serviceImplPackage}.GenericService;
 
 /**
 * @author: veitch
